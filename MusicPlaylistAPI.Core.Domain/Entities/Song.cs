@@ -9,6 +9,7 @@ namespace MusicPlaylistAPI.Core.Domain.Entities
     public class Song
     {
         public Guid SongId { get; set; }
+        public string? Title { get; set; }
         public string Artist { get; set; } = string.Empty;
         public string Genre { get; set; } = string.Empty;
         public float Duration { get; set; }
