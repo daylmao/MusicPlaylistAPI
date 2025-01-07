@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\Services\" />
-    <Folder Include="Interfaces\Repository\" />
-    <Folder Include="Mapper\" />
     <Folder Include="Services\" />
     <Folder Include="Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
   </ItemGroup>
 
   <ItemGroup>
