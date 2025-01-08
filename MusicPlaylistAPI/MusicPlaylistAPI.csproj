@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MusicPlaylistAPI.Core.Application\MusicPlaylistAPI.Core.Application.csproj" />
     <ProjectReference Include="..\MusicPlaylistAPI.Infraestructure.Persistence\MusicPlaylistAPI.Infraestructure.Persistence.csproj" />
     <ProjectReference Include="..\MusicPlaylistAPI.Infraestructure.Shared\MusicPlaylistAPI.Infraestructure.Shared.csproj" />
