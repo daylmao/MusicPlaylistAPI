@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicPlaylistAPI.Core.Application.DTOs.Song;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace MusicPlaylistAPI.Core.Application.DTOs.Playlist
         public Guid PlaylistId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; } = null;
-        public ICollection<string>? Title { get; set; }
+        public ICollection<SongDTO>? Songs { get; set; }
         public DateTime DateCreated { get; set; }
     }
 }
