@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MusicPlaylistAPI.Core.Application.Interfaces.Repository;
 using MusicPlaylistAPI.Infraestructure.Persistence.Context;
+using MusicPlaylistAPI.Infraestructure.Persistence.Repository;
 
 
 namespace MusicPlaylistAPI.Infraestructure.Persistence
@@ -19,7 +21,10 @@ namespace MusicPlaylistAPI.Infraestructure.Persistence
             });
 
             #endregion
-
+            #region repository
+            Service.AddTransient<IPlaylistRepository, PlaylistRepository>();
+            Service.AddTransient<ISongRepository, SongRepository>();
+            #endregion
         }
     }
 }
