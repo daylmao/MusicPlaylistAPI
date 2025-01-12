@@ -12,9 +12,9 @@ namespace MusicPlaylistAPI.Core.Application.Interfaces.Services
         where TU : class
     {
         Task<IEnumerable<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int Id);
+        Task<T> GetByIdAsync(Guid Id);
         Task<T> CreateAsync(TI Insert);
-        Task<T> UpdateAsync(int Id, TU Update);
-        Task<T> DeleteAsync(int Id);
+        Task<T> UpdateAsync(Guid Id, TU Update);
+        Task<T> DeleteAsync(Guid Id);
     }
 }

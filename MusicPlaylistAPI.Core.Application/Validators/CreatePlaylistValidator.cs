@@ -20,8 +20,6 @@ namespace MusicPlaylistAPI.Core.Application.Validators
                 .MaximumLength(100).WithMessage("Description must not exceed 100 characters")
                 .When(b => b.Description != null); 
 
-            RuleFor(b => b.DateCreated)
-                .LessThanOrEqualTo(DateTime.UtcNow).WithMessage("DateCreated cannot be in the future");
         }
     }
 }

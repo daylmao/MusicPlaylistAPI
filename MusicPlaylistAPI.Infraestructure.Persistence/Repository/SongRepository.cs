@@ -17,12 +17,30 @@ namespace MusicPlaylistAPI.Infraestructure.Persistence.Repository
 
         public async Task<IEnumerable<Song>> GetAllAsync() => await _context.Songs.ToListAsync();
 
-        public async Task<Song> GetByIdAsync(int id) => await _context.Songs.FindAsync(id);
+        public async Task<IEnumerable<Song>> GetByIdsAsync(IEnumerable<Guid> songIds)
+        {
+            return await _context.Songs
+                                 .Where(s => songIds.Contains(s.SongId))
+                                 .ToListAsync();
+        }
+        public async Task<Song> GetByIdAsync(Guid id) => await _context.Songs.FindAsync(id);
+
 
         public async Task<IEnumerable<Song>> GetByTitleAndArtist(string? title = null, string? artist = null)
         {
-            return await _context.Songs
-                .Where(b => (title == null || b.Title == title) && (artist == null || b.Artist == artist)).ToListAsync();
+            var query = _context.Songs.AsQueryable();
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                query = query.Where(b => b.Title.ToLower().Contains(title.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(artist))
+            {
+                query = query.Where(b => b.Artist.ToLower().Contains(artist.ToLower()));
+            }
+
+            return await query.ToListAsync();
         }
         public async Task InsertAsync(Song entity)
         {

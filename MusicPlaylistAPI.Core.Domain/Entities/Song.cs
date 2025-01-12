@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace MusicPlaylistAPI.Core.Domain.Entities
 {
     public class Song
@@ -13,6 +8,6 @@ namespace MusicPlaylistAPI.Core.Domain.Entities
         public string? Artist { get; set; }
         public string? Genre { get; set; } 
         public float Duration { get; set; }
-        public virtual ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public ICollection<Playlist> Playlists { get; set; } = new List<Playlist>();
     }
 }

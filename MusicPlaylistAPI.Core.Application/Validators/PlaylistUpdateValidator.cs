@@ -21,8 +21,7 @@ namespace MusicPlaylistAPI.Core.Application.Validators
 
             //falta validacion de song
 
-            RuleFor(b => b.DateCreated)
-                .LessThanOrEqualTo(DateTime.UtcNow).WithMessage("DateCreated cannot be in the future");
+          
         }
     }
 }

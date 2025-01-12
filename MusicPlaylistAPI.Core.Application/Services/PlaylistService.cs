@@ -3,20 +3,16 @@ using MusicPlaylistAPI.Core.Application.DTOs.Playlist;
 using MusicPlaylistAPI.Core.Application.Interfaces.Repository;
 using MusicPlaylistAPI.Core.Application.Interfaces.Services;
 using MusicPlaylistAPI.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace MusicPlaylistAPI.Core.Application.Services
 {
     public class PlaylistService : IPlaylistService
     {
         private readonly IPlaylistRepository _playlistRepository;
-        private readonly IMapper _mapper;        
+        private readonly IMapper _mapper;
 
-        public PlaylistService(IPlaylistRepository playlistRepository, IMapper mapper)
+        public PlaylistService(IPlaylistRepository playlistRepository, ISongRepository songRepository, IMapper mapper)
         {
             _playlistRepository = playlistRepository;
             _mapper = mapper;
@@ -28,7 +24,7 @@ namespace MusicPlaylistAPI.Core.Application.Services
             return getAll.Select(b => _mapper.Map<PlaylistDTO>(b));
         }
 
-        public async Task<PlaylistDTO> GetByIdAsync(int Id)
+        public async Task<PlaylistDTO> GetByIdAsync(Guid Id)
         {
             var found = await _playlistRepository.GetByIdAsync(Id);
             if (found == null)
@@ -45,24 +41,39 @@ namespace MusicPlaylistAPI.Core.Application.Services
             {
                 return null;
             }
-            newInfo.DateCreated = DateTime.Now;
+            newInfo.CreateAt = DateTime.Now;
             await _playlistRepository.InsertAsync(newInfo);
             return _mapper.Map<PlaylistDTO>(newInfo);
         }
 
-        public async Task<PlaylistDTO> UpdateAsync(int Id, PlaylistUpdateDTO Update)
+        public async Task<PlaylistDTO> UpdateAsync(Guid id, PlaylistUpdateDTO update)
         {
-            var oldData = await _playlistRepository.GetByIdAsync(Id);
+            var oldData = await _playlistRepository.GetByIdAsync(id);
             if (oldData == null)
             {
                 return null;
             }
-            var newInfo = _mapper.Map(Update, oldData);
-            await _playlistRepository.UpdateAsync(newInfo);
-            return _mapper.Map<PlaylistDTO>(newInfo);
+
+            var newInfo = _mapper.Map(update, oldData); 
+
+            await _playlistRepository.UpdateAsync(newInfo); 
+
+            return _mapper.Map<PlaylistDTO>(newInfo); 
         }
 
-        public async Task<PlaylistDTO> DeleteAsync(int Id)
+        public async Task<PlaylistUpdateSongsDTO> UpdatePlaylistSongs(Guid playlistId, List<Guid> songIds)
+        {
+            var playlistUpdated = await _playlistRepository.UpdatePlaylistSongs(playlistId, songIds);
+
+            if (playlistUpdated == null)
+            {
+                return null; 
+            }
+
+            return _mapper.Map<PlaylistUpdateSongsDTO>(playlistUpdated);
+        }
+
+        public async Task<PlaylistDTO> DeleteAsync(Guid Id)
         {
             var found = await _playlistRepository.GetByIdAsync(Id);
             if (found == null)
@@ -73,5 +84,6 @@ namespace MusicPlaylistAPI.Core.Application.Services
             await _playlistRepository.DeleteAsync(found);
             return _mapper.Map<PlaylistDTO>(found);
         }
+
     }
 }
