@@ -1,13 +1,10 @@
-﻿using AutoMapper;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using MusicPlaylistAPI.Core.Application.Interfaces.Services;
 using MusicPlaylistAPI.Core.Application.Mapper;
 using MusicPlaylistAPI.Core.Application.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MusicPlaylistAPI.Core.Application.Validators;
+
 
 namespace MusicPlaylistAPI.Core.Application
 {
@@ -22,7 +19,13 @@ namespace MusicPlaylistAPI.Core.Application
             #region services
             Service.AddScoped<IPlaylistService, PlaylistService>();
             Service.AddScoped<ISongService, SongService>();
+            #endregion
 
+            #region validators
+            Service.AddValidatorsFromAssemblyContaining<CreatePlaylistValidator>();
+            Service.AddValidatorsFromAssemblyContaining<PlaylistUpdateValidator>();
+            Service.AddValidatorsFromAssemblyContaining<SongInsertValidator>();
+            Service.AddValidatorsFromAssemblyContaining<SongUpdateValidator>();
             #endregion
         }
     }
