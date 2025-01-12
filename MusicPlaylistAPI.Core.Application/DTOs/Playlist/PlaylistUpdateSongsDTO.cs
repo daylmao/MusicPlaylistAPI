@@ -8,6 +8,7 @@ namespace MusicPlaylistAPI.Core.Application.DTOs.Playlist
 {
     public class PlaylistUpdateSongsDTO
     {
+        public Guid PlaylistId { get; set; }
         public ICollection<Guid>? Songs { get; set; }
     }
 }

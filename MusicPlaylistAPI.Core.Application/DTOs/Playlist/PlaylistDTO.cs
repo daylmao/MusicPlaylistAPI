@@ -12,7 +12,8 @@ namespace MusicPlaylistAPI.Core.Application.DTOs.Playlist
         public Guid PlaylistId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; } = null;
-        public ICollection<SongDTO>? Songs { get; set; }
-        public DateTime DateCreated { get; set; }
+        public ICollection<Guid>? Songs { get; set; }
+        public Guid UserId { get; set; }
+        public DateTime CreateAt { get; set; }
     }
 }
