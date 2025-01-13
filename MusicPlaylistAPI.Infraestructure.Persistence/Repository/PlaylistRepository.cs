@@ -55,7 +55,7 @@ namespace MusicPlaylistAPI.Infraestructure.Persistence.Repository
             return playlist;
         }
 
-        public async Task InsertAsync(Playlist entity)
+        public async Task CreateAsync(Playlist entity)
         {
             await _context.Playlists.AddAsync(entity);
             await SaveChangesAsync();
