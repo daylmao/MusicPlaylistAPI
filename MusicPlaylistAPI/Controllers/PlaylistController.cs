@@ -34,7 +34,9 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         public async Task<ActionResult<PlaylistDTO>> GetById(Guid id)
         {
             var playlist = await _playlistService.GetByIdAsync(id);
-            return playlist == null ? NotFound() : Ok(playlist);
+            return playlist == null
+                ? NotFound("Playlist not found")
+                : Ok(playlist);
         }
 
         [HttpPost]
@@ -45,6 +47,9 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
                 return BadRequest(validation.Errors);
 
             var createdPlaylist = await _playlistService.CreateAsync(insertDto);
+            if (createdPlaylist == null)
+                return BadRequest("Error creating playlist");
+
             return CreatedAtAction(nameof(GetById), new { id = createdPlaylist.PlaylistId }, createdPlaylist);
         }
 
@@ -53,14 +58,16 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         {
             var existingPlaylist = await _playlistService.GetByIdAsync(id);
             if (existingPlaylist == null)
-                return NotFound();
+                return NotFound("Playlist not found");
 
             var validation = await _updatePlaylistValidator.ValidateAsync(updateDto);
             if (!validation.IsValid)
                 return BadRequest(validation.Errors);
 
             var updatedPlaylist = await _playlistService.UpdateAsync(id, updateDto);
-            return updatedPlaylist == null ? BadRequest("Failed to update the playlist") : Ok(updatedPlaylist);
+            return updatedPlaylist == null
+                ? BadRequest("Error updating playlist")
+                : Ok(updatedPlaylist);
         }
 
         [HttpPatch("{playlistId}/songs")]
@@ -68,18 +75,18 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         {
             var updatedPlaylist = await _playlistService.UpdatePlaylistSongs(playlistId, songIds);
             if (updatedPlaylist == null)
-            {
-                return NotFound();
-            }
-            return Ok(updatedPlaylist); 
-        }
+                return NotFound("Playlist not found");
 
+            return Ok(updatedPlaylist);
+        }
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var deletedPlaylist = await _playlistService.DeleteAsync(id);
-            return deletedPlaylist == null ? NotFound() : Ok(deletedPlaylist);
+            return deletedPlaylist == null
+                ? NotFound("Playlist not found")
+                : Ok(new { Message = "Playlist deleted successfully", Data = deletedPlaylist });
         }
     }
 }
