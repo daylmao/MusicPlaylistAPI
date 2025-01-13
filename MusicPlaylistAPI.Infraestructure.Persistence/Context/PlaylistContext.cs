@@ -26,8 +26,7 @@ namespace MusicPlaylistAPI.Infraestructure.Persistence.Context
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(b => b.UserId);
-                entity.Property(b => b.UserId)//temporal
-       .HasDefaultValueSql("NEWSEQUENTIALID()");//
+                entity.Property(b => b.UserId).ValueGeneratedOnAdd();
                 entity.Property(b => b.Email).IsRequired().HasMaxLength(100);
                 entity.Property(b => b.Password).IsRequired();
                 entity.HasMany(b => b.Playlists)
