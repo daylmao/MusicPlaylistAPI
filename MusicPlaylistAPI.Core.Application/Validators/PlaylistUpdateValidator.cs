@@ -13,15 +13,13 @@ namespace MusicPlaylistAPI.Core.Application.Validators
         public PlaylistUpdateValidator()
         {
             RuleFor(b => b.Name)
-                        .NotEmpty().WithMessage("Name is required")
-                        .MaximumLength(50).WithMessage("Name must not exceed 50 characters");
+                        .NotEmpty().WithMessage("{PropertyName} is required")
+                        .MaximumLength(50).WithMessage("{PropertyName} must not exceed 50 characters");
 
             RuleFor(b => b.Description)
-                .MaximumLength(100).WithMessage("Description must not exceed 100 characters");
+                        .Length(25, 100)
+                        .WithMessage("{PropertyName} must be between 25 and 100 characters");
 
-            //falta validacion de song
-
-          
         }
     }
 }
