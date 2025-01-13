@@ -19,6 +19,7 @@ namespace MusicPlaylistAPI.Core.Application
             #region services
             Service.AddScoped<IPlaylistService, PlaylistService>();
             Service.AddScoped<ISongService, SongService>();
+            Service.AddScoped<IUserService, UserService>();
             #endregion
 
             #region validators
@@ -26,6 +27,8 @@ namespace MusicPlaylistAPI.Core.Application
             Service.AddValidatorsFromAssemblyContaining<PlaylistUpdateValidator>();
             Service.AddValidatorsFromAssemblyContaining<SongInsertValidator>();
             Service.AddValidatorsFromAssemblyContaining<SongUpdateValidator>();
+            Service.AddValidatorsFromAssemblyContaining<UserInsertValidator>();
+            Service.AddValidatorsFromAssemblyContaining<UserUpdateValidator>();
             #endregion
         }
     }
