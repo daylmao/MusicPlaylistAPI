@@ -9,7 +9,7 @@ namespace MusicPlaylistAPI.Core.Application.Interfaces.Repository
 {
     public interface ISongRepository : IGenericRepository<Song>
     {
-        Task<Song> GetByIdAsync(Guid id);
+        Task<IEnumerable<Song>> GetAllAsync();
         Task<IEnumerable<Song>> GetByIdsAsync(IEnumerable<Guid> songIds);
         Task<IEnumerable<Song>> GetByTitleAndArtist(string? title, string? artist );
     }
