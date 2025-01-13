@@ -4,7 +4,6 @@ using MusicPlaylistAPI.Core.Application.Interfaces.Repository;
 using MusicPlaylistAPI.Core.Application.Interfaces.Services;
 using MusicPlaylistAPI.Core.Domain.Entities;
 
-
 namespace MusicPlaylistAPI.Core.Application.Services
 {
     public class PlaylistService : IPlaylistService
@@ -12,7 +11,7 @@ namespace MusicPlaylistAPI.Core.Application.Services
         private readonly IPlaylistRepository _playlistRepository;
         private readonly IMapper _mapper;
 
-        public PlaylistService(IPlaylistRepository playlistRepository, ISongRepository songRepository, IMapper mapper)
+        public PlaylistService(IPlaylistRepository playlistRepository, IMapper mapper)
         {
             _playlistRepository = playlistRepository;
             _mapper = mapper;
@@ -41,8 +40,8 @@ namespace MusicPlaylistAPI.Core.Application.Services
             {
                 return null;
             }
-            newInfo.CreateAt = DateTime.Now;
-            await _playlistRepository.InsertAsync(newInfo);
+            newInfo.CreateAt = DateTime.UtcNow;
+            await _playlistRepository.CreateAsync(newInfo);
             return _mapper.Map<PlaylistDTO>(newInfo);
         }
 
