@@ -6,22 +6,22 @@ public class SongUpdateValidator : AbstractValidator<SongUpdateDTO>
     public SongUpdateValidator()
     {
         RuleFor(song => song.UserId)
-            .NotEmpty().WithMessage("UserId is required");
+            .NotEmpty().WithMessage("{PropertyName} is required");
 
         RuleFor(song => song.Artist)
-            .NotEmpty().WithMessage("Artist is required")
-            .MaximumLength(100).WithMessage("Artist must not exceed 100 characters");
+            .NotEmpty().WithMessage("{PropertyName} is required")
+            .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters");
 
         RuleFor(song => song.Title)
-            .NotEmpty().WithMessage("Title is required")
-            .MaximumLength(200).WithMessage("Title must not exceed 200 characters");
+            .NotEmpty().WithMessage("{PropertyName} is required")
+            .MaximumLength(200).WithMessage("{PropertyName} must not exceed 200 characters");
 
         RuleFor(song => song.Genre)
-            .NotEmpty().WithMessage("Genre is required")
-            .Must(BeAValidGenre).WithMessage("Genre must be one of the predefined values: Pop, Rock, Jazz, Classical, Hip-Hop");
+            .NotEmpty().WithMessage("{PropertyName} is required")
+            .Must(BeAValidGenre).WithMessage("{PropertyName} must be one of the predefined values: Pop, Rock, Jazz, Classical, Hip-Hop");
 
         RuleFor(song => song.Duration)
-            .GreaterThan(0).WithMessage("Duration must be greater than 0");
+            .GreaterThan(0).WithMessage("{PropertyName} must be greater than 0");
     }
 
     private bool BeAValidGenre(string? genre)

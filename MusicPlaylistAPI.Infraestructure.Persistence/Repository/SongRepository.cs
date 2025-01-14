@@ -42,7 +42,7 @@ namespace MusicPlaylistAPI.Infraestructure.Persistence.Repository
 
             return await query.ToListAsync();
         }
-        public async Task InsertAsync(Song entity)
+        public async Task CreateAsync(Song entity)
         {
             await _context.Songs.AddAsync(entity);
             await SaveChangesAsync();

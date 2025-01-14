@@ -27,14 +27,16 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         public async Task<ActionResult<IEnumerable<SongDTO>>> GetAll()
         {
             var songs = await _songService.GetAllAsync();
-            return Ok(songs);
+            return Ok(new { Message = "Songs retrieved successfully", Data = songs });
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<SongDTO>> GetById(Guid id)
         {
             var song = await _songService.GetByIdAsync(id);
-            return song == null ? NotFound() : Ok(song);
+            return song == null
+                ? NotFound(new { Message = $"Song with ID {id} was not found" })
+                : Ok(new { Message = "Song retrieved successfully", Data = song });
         }
 
         [HttpGet("search")]
@@ -42,15 +44,17 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         {
             if (string.IsNullOrWhiteSpace(title) && string.IsNullOrWhiteSpace(artist))
             {
-                return BadRequest("At least one of 'title' or 'artist' must be provided");
+                return BadRequest(new { Message = "At least one of 'title' or 'artist' must be provided" });
             }
+
             var songs = await _songService.GetByTitleAndArtist(title, artist);
 
             if (songs == null || !songs.Any())
             {
-                return NotFound("No songs found matching the provided filters.");
+                return NotFound(new { Message = "No songs found matching the provided filters" });
             }
-            return Ok(songs);
+
+            return Ok(new { Message = "Songs retrieved successfully", Data = songs });
         }
 
         [HttpPost]
@@ -58,13 +62,14 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         {
             var validation = await _insertSongValidator.ValidateAsync(insertDto);
             if (!validation.IsValid)
-                return BadRequest(validation.Errors);
+                return BadRequest(new { Message = "Validation failed", Errors = validation.Errors });
 
             var createdSong = await _songService.CreateAsync(insertDto);
             if (createdSong == null)
-                return BadRequest("Error creating the song");
+                return BadRequest(new { Message = "Error creating the song" });
 
-            return CreatedAtAction(nameof(GetById), new { id = createdSong.SongId}, createdSong);
+            return CreatedAtAction(nameof(GetById), new { id = createdSong.SongId },
+                new { Message = "Song created successfully", Data = createdSong });
         }
 
         [HttpPut("{id:guid}")]
@@ -72,17 +77,21 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         {
             var validation = await _updateSongValidator.ValidateAsync(updateDto);
             if (!validation.IsValid)
-                return BadRequest(validation.Errors);
+                return BadRequest(new { Message = "Validation failed", Errors = validation.Errors });
 
             var updatedSong = await _songService.UpdateAsync(id, updateDto);
-            return updatedSong == null ? NotFound() : Ok(updatedSong);
+            return updatedSong == null
+                ? NotFound(new { Message = $"Song not found" })
+                : Ok(new { Message = "Song updated successfully", Data = updatedSong });
         }
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var deletedSong = await _songService.DeleteAsync(id);
-            return deletedSong == null ? NotFound() : Ok(deletedSong);
+            return deletedSong == null
+                ? NotFound(new { Message = $"Song not found" })
+                : Ok(new { Message = "Song deleted successfully", Data = deletedSong });
         }
     }
 }

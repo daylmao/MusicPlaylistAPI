@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MusicPlaylistAPI.Core.Application.DTOs.Playlist;
 using MusicPlaylistAPI.Core.Application.DTOs.Song;
+using MusicPlaylistAPI.Core.Application.DTOs.User;
 using MusicPlaylistAPI.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,40 +16,60 @@ namespace MusicPlaylistAPI.Core.Application.Mapper
         public MapperProfile()
         {
 
-            // Mapeo Song -> SongDTO
+            #region song
             CreateMap<Song, SongDTO>();
-
-            // Mapeo SongInsertDTO -> Song
+           
             CreateMap<SongInsertDTO, Song>()
-                .ForMember(dest => dest.SongId, opt => opt.Ignore()) // Ignorar SongId 
-                .ForMember(dest => dest.Playlists, opt => opt.Ignore()); // Ignorar Playlists
-
-            // Mapeo SongUpdateDTO -> Song
+                .ForMember(dest => dest.SongId, opt => opt.Ignore()) 
+                .ForMember(dest => dest.Playlists, opt => opt.Ignore()); 
+            
             CreateMap<SongUpdateDTO, Song>()
-                .ForMember(dest => dest.SongId, opt => opt.Ignore()) // No modificar SongId en la actualización
-                .ForMember(dest => dest.Playlists, opt => opt.Ignore()); // Ignorar Playlists
+                .ForMember(dest => dest.SongId, opt => opt.Ignore()) 
+                .ForMember(dest => dest.Playlists, opt => opt.Ignore());
+            #endregion
 
-            // Mapeo Playlist -> PlaylistDTO
+            #region playlist
             CreateMap<Playlist, PlaylistDTO>()
                 .ForMember(dest => dest.Songs, opt => opt.MapFrom(src => src.Songs.Select(s => s.SongId)));
 
-            // Mapeo PlaylistInsertDTO -> Playlist
+            
             CreateMap<PlaylistInsertDTO, Playlist>()
-                .ForMember(dest => dest.PlaylistId, opt => opt.Ignore()) // Ignorar PlaylistId (generado automáticamente)
-                .ForMember(dest => dest.CreateAt, opt => opt.Ignore()) // Ignorar CreateAt (asignado manualmente)
-                .ForMember(dest => dest.Songs, opt => opt.Ignore()) // Ignorar Songs
-                .ForMember(dest => dest.User, opt => opt.Ignore()); // Ignorar User
+                .ForMember(dest => dest.PlaylistId, opt => opt.Ignore()) 
+                .ForMember(dest => dest.CreateAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Songs, opt => opt.Ignore()) 
+                .ForMember(dest => dest.User, opt => opt.Ignore());
 
-            // Mapeo PlaylistUpdateDTO -> Playlist
+            
             CreateMap<PlaylistUpdateDTO, Playlist>()
-                .ForMember(dest => dest.PlaylistId, opt => opt.Ignore()) // Ignorar PlaylistId para evitar inconsistencias
-                .ForMember(dest => dest.CreateAt, opt => opt.Ignore()) // Ignorar CreateAt
-                .ForMember(dest => dest.Songs, opt => opt.Ignore()) // Ignorar Songs
-                .ForMember(dest => dest.User, opt => opt.Ignore()); // Ignorar User
+                .ForMember(dest => dest.PlaylistId, opt => opt.Ignore()) 
+                .ForMember(dest => dest.CreateAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Songs, opt => opt.Ignore())
+                .ForMember(dest => dest.User, opt => opt.Ignore());
 
-            // Mapeo Playlist -> PlaylistUpdateSongsDTO
+            
             CreateMap<Playlist, PlaylistUpdateSongsDTO>()
                 .ForMember(dest => dest.Songs, opt => opt.MapFrom(src => src.Songs.Select(s => s.SongId).ToList()));
+            #endregion
+
+            #region user
+
+
+            CreateMap<UserInsertDTO, User>()
+                    .ForMember(dest => dest.CreateAt, opt => opt.Ignore())
+                    .ForMember(dest => dest.Playlists, opt => opt.Ignore()); 
+
+                
+                CreateMap<UserUpdateDTO, User>()
+                    .ForMember(dest => dest.UserId, opt => opt.Ignore()) 
+                    .ForMember(dest => dest.Playlists, opt => opt.Ignore()); 
+
+                
+                CreateMap<User, UserDTO>()
+                    .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.CreateAt));
+            #endregion
+
         }
+
     }
 }
+

@@ -8,10 +8,10 @@ namespace MusicPlaylistAPI.Core.Domain.Entities
 {
     public class User
     {
-        public Guid UserId { get; set; } = Guid.NewGuid();
+        public Guid UserId { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
-        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public ICollection<Playlist>? Playlists { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace MusicPlaylistAPI.Infraestructure.Persistence
             #region repository
             Service.AddTransient<IPlaylistRepository, PlaylistRepository>();
             Service.AddTransient<ISongRepository, SongRepository>();
+            Service.AddTransient<IUserRepository, UserRepository>();
             #endregion
         }
     }

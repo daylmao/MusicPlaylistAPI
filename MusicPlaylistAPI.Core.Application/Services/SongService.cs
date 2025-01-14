@@ -52,7 +52,7 @@ namespace MusicPlaylistAPI.Core.Application.Services
             {
                 return null;
             }
-            await _songRepository.InsertAsync(insert);
+            await _songRepository.CreateAsync(insert);
             return _mapper.Map<SongDTO>(insert);
         }
 

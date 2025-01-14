@@ -9,6 +9,7 @@ namespace MusicPlaylistAPI.Core.Application.Interfaces.Repository
 {
     public interface IPlaylistRepository: IGenericRepository<Playlist>
     {
+        Task<IEnumerable<Playlist>> GetAllAsync();
         Task<Playlist> GetByIdAsync(Guid id);
         Task<Playlist> UpdatePlaylistSongs(Guid playlistId, List<Guid> songIds); 
 
