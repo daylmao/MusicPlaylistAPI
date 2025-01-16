@@ -27,6 +27,8 @@ namespace MusicPlaylistAPI.Infraestructure.Persistence.Context
             {
                 entity.HasKey(b => b.UserId);
                 entity.Property(b => b.UserId).ValueGeneratedOnAdd();
+                entity.Property(b => b.Name).IsRequired().HasMaxLength(50);
+                entity.Property(b => b.LastName).IsRequired().HasMaxLength(50);
                 entity.Property(b => b.Email).IsRequired().HasMaxLength(100);
                 entity.Property(b => b.Password).IsRequired();
                 entity.HasMany(b => b.Playlists)
