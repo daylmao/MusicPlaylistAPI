@@ -21,6 +21,11 @@ namespace MusicPlaylistAPI.Core.Application.Validators
             RuleFor(user => user.Password)
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .MinimumLength(6).WithMessage("{PropertyName} must be at least 6 characters");
+
+            RuleFor(user => user.Name)
+                .NotEmpty().WithMessage("{PropertyName} is required");
+            RuleFor(user => user.LastName)
+                .NotEmpty().WithMessage("{PropertyName} is required");
         }
     }
 }
