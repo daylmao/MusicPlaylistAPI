@@ -1,4 +1,5 @@
 using MusicPlaylistAPI.Infraestructure.Persistence;
+using MusicPlaylistAPI.Infraestructure.Shared;
 using MusicPlaylistAPI.Core.Application;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 //DI
 builder.Services.AddPersistenceMethod(config);
 builder.Services.AddApplicationMethod();
+builder.Services.AddEmail(config);
+
 
 
 
