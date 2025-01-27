@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MusicPlaylistAPI.Core.Application\MusicPlaylistAPI.Core.Application.csproj" />
+    <ProjectReference Include="..\MusicPlaylistAPI.Infraestructure.Identity\MusicPlaylistAPI.Infraestructure.Identity.csproj" />
     <ProjectReference Include="..\MusicPlaylistAPI.Infraestructure.Persistence\MusicPlaylistAPI.Infraestructure.Persistence.csproj" />
     <ProjectReference Include="..\MusicPlaylistAPI.Infraestructure.Shared\MusicPlaylistAPI.Infraestructure.Shared.csproj" />
   </ItemGroup>
