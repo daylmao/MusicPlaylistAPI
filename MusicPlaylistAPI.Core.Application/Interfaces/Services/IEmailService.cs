@@ -9,6 +9,6 @@ namespace MusicPlaylistAPI.Core.Application.Interfaces.Services
 {
     public interface IEmailService
     {
-        Task EmailRequest(EmailDTO email);
+        Task SendEmailAsync(EmailDTO email);
     }
 }

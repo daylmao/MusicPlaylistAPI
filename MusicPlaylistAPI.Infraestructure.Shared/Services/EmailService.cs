@@ -21,7 +21,7 @@ namespace MusicPlaylistAPI.Infraestructure.Shared.Services
             _mailSettings = mailSettings.Value;
         }
 
-        public async Task EmailRequest(EmailDTO request)
+        public async Task SendEmailAsync(EmailDTO request)
         {
             var email  = new MimeMessage();
             email.Sender = MailboxAddress.Parse(_mailSettings.EmailFrom);

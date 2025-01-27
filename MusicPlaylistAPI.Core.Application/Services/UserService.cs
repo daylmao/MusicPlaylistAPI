@@ -40,7 +40,7 @@ namespace MusicPlaylistAPI.Core.Application.Services
 
             newInfo.CreateAt = DateTime.UtcNow;
             await _userRepository.CreateAsync(newInfo);
-            await _emailService.EmailRequest(new EmailDTO
+            await _emailService.SendEmailAsync(new EmailDTO
             {
                 To = insert.Email,
                 Subject = "Welcome to our platform",
