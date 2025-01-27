@@ -25,21 +25,16 @@ namespace MusicPlaylistAPI.Core.Application.Services
             return _mapper.Map<IEnumerable<SongDTO>>(getAll);
         }
 
-        public async Task<SongDTO> GetByIdAsync(Guid Id)
+        public async Task<SongDTO> GetByIdAsync(Guid id)
         {
-            var found = await _songRepository.GetByIdAsync(Id);
-            if (found == null)
-            {
-                return null;
-            }
+            var found = await _songRepository.GetByIdAsync(id);
+            if (found == null)  return null;
+
             return _mapper.Map<SongDTO>(found);
         }
         public async Task<IEnumerable<SongDTO>?> GetByIdsAsync(IEnumerable<Guid> songIds)
         {
-            if (songIds == null || !songIds.Any())
-            {
-                return null;
-            }
+            if (songIds == null || !songIds.Any())  return null;
 
             var songs = await _songRepository.GetByIdsAsync(songIds);
             return songs.Select(song => _mapper.Map<SongDTO>(song));
@@ -48,10 +43,8 @@ namespace MusicPlaylistAPI.Core.Application.Services
         public async Task<SongDTO> CreateAsync(SongInsertDTO Insert)
         {
             var insert = _mapper.Map<Song>(Insert);
-            if (insert == null)
-            {
-                return null;
-            }
+            if (insert == null)    return null;
+
             await _songRepository.CreateAsync(insert);
             return _mapper.Map<SongDTO>(insert);
         }
@@ -59,10 +52,8 @@ namespace MusicPlaylistAPI.Core.Application.Services
         public async Task<SongDTO> UpdateAsync(Guid Id, SongUpdateDTO Update)
         {
             var oldData = await _songRepository.GetByIdAsync(Id);
-            if (oldData == null)
-            {
-                return null;
-            }
+            if (oldData == null)   return null;
+
             var newInfo = _mapper.Map(Update, oldData);
             await _songRepository.UpdateAsync(newInfo);
             return _mapper.Map<SongDTO>(newInfo);
@@ -71,20 +62,16 @@ namespace MusicPlaylistAPI.Core.Application.Services
         public async Task<IEnumerable<SongDTO>> GetByTitleAndArtist(string? title, string? artist)
         {
             var filtered = await _songRepository.GetByTitleAndArtist(title, artist);
-            if (filtered == null)
-            {
-                return null;
-            }
+            if (filtered == null)   return null;
+
             return _mapper.Map<IEnumerable<SongDTO>>(filtered);
         }
 
         public async Task<SongDTO> DeleteAsync(Guid Id)
         {
             var found = await _songRepository.GetByIdAsync(Id);
-            if (found == null)
-            {
-                return null;
-            }
+            if (found == null)  return null;
+
             await _songRepository.DeleteAsync(found);
             return _mapper.Map<SongDTO>(found);
         }

@@ -23,6 +23,11 @@ namespace MusicPlaylistAPI.Core.Application.Validators
                 .Matches(@"[A-Z]").WithMessage("{PropertyName} must contain at least one uppercase letter")
                 .Matches(@"[a-z]").WithMessage("{PropertyName} must contain at least one lowercase letter")
                 .Matches(@"[\W_]").WithMessage("{PropertyName} must contain at least one special character");
+
+            RuleFor(user => user.Name)
+                .NotEmpty().WithMessage("{PropertyName} is required");
+            RuleFor(user => user.LastName)
+                .NotEmpty().WithMessage("{PropertyName} is required");
         }
     }
 }

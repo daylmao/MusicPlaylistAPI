@@ -53,6 +53,7 @@ namespace MusicPlaylistAPI.Core.Application.Mapper
 
             #region user
 
+            CreateMap<User, UserDTO>();
 
             CreateMap<UserInsertDTO, User>()
                     .ForMember(dest => dest.CreateAt, opt => opt.Ignore())
@@ -63,9 +64,6 @@ namespace MusicPlaylistAPI.Core.Application.Mapper
                     .ForMember(dest => dest.UserId, opt => opt.Ignore()) 
                     .ForMember(dest => dest.Playlists, opt => opt.Ignore()); 
 
-                
-                CreateMap<User, UserDTO>()
-                    .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src.CreateAt));
             #endregion
 
         }

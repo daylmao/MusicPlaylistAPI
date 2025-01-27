@@ -2,12 +2,12 @@
 using MusicPlaylistAPI.Core.Application.DTOs.Playlist;
 using MusicPlaylistAPI.Core.Application.Interfaces.Services;
 using FluentValidation;
+using Asp.Versioning;
 
-namespace MusicPlaylistAPI.WebAPI.Controllers
+namespace MusicPlaylistAPI.Controllers.v1
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PlaylistController : ControllerBase
+    [ApiVersion("1.0")]
+    public class PlaylistController : BaseController
     {
         private readonly IPlaylistService _playlistService;
         private readonly IValidator<PlaylistInsertDTO> _createPlaylistValidator;

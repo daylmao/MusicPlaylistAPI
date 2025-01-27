@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicPlaylistAPI.Core.Application.DTOs.User
+namespace MusicPlaylistAPI.Core.Application.DTOs.Account.Authenticate
 {
-    public class UserInsertDTO
+    public class ResetPasswordRequestDTO
     {
         public string? Email { get; set; }
+        public string? Token { get; set; }
         public string? Password { get; set; }
-        public string? Name { get; set; }
-        public string? LastName { get; set; }
-        public DateTime DateCreated { get; set; }
+        public string? ConfirmPassword { get; set; }
+        
     }
 }
