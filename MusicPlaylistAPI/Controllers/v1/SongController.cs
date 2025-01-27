@@ -2,12 +2,12 @@
 using MusicPlaylistAPI.Core.Application.DTOs.Song;
 using MusicPlaylistAPI.Core.Application.Interfaces.Services;
 using FluentValidation;
+using Asp.Versioning;
 
-namespace MusicPlaylistAPI.WebAPI.Controllers
+namespace MusicPlaylistAPI.Controllers.v1
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SongController : ControllerBase
+    [ApiVersion("1.0")]
+    public class SongController : BaseController
     {
         private readonly ISongService _songService;
         private readonly IValidator<SongInsertDTO> _insertSongValidator;
@@ -62,7 +62,7 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         {
             var validation = await _insertSongValidator.ValidateAsync(insertDto);
             if (!validation.IsValid)
-                return BadRequest(new { Message = "Validation failed", Errors = validation.Errors });
+                return BadRequest(new { Message = "Validation failed", validation.Errors });
 
             var createdSong = await _songService.CreateAsync(insertDto);
             if (createdSong == null)
@@ -77,7 +77,7 @@ namespace MusicPlaylistAPI.WebAPI.Controllers
         {
             var validation = await _updateSongValidator.ValidateAsync(updateDto);
             if (!validation.IsValid)
-                return BadRequest(new { Message = "Validation failed", Errors = validation.Errors });
+                return BadRequest(new { Message = "Validation failed", validation.Errors });
 
             var updatedSong = await _songService.UpdateAsync(id, updateDto);
             return updatedSong == null

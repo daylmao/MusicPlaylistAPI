@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using MusicPlaylistAPI.Core.Application.DTOs.User;
 using MusicPlaylistAPI.Core.Application.Interfaces.Services;
 using FluentValidation;
+using Asp.Versioning;
 
-namespace MusicPlaylistAPI.Controllers
+namespace MusicPlaylistAPI.Controllers.v1
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+    [ApiVersion("1.0")]
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
@@ -47,8 +47,8 @@ namespace MusicPlaylistAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UserUpdateDTO userUpdateDTO)
         {
-            if (userUpdateDTO == null) 
-            return BadRequest("User data is null");
+            if (userUpdateDTO == null)
+                return BadRequest("User data is null");
 
             var validationResult = await _userUpdateValidator.ValidateAsync(userUpdateDTO);
             if (!validationResult.IsValid)
