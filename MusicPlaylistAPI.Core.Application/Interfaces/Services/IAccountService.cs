@@ -8,7 +8,7 @@ namespace MusicPlaylistAPI.Core.Application.Interfaces.Services
         Task<string> ConfirmAccountAsync(string userId, string token);
         Task<ForgotPasswordResponseDTO> ForgotPasswordAsync(ForgotPasswordRequestDTO request, string origin);
         Task<RegisterResponseDTO> RegisterAsync(RegisterRequestDTO request, string origin);
-        Task<ResetPasswordResponseDTO> ResetPasswordAsync(ResetPasswordRequestDTO request, string token);
+        Task<ResetPasswordResponseDTO> ResetPasswordAsync(ResetPasswordRequestDTO request);
         Task SignOut();
     }
 }

@@ -3,10 +3,12 @@ using MusicPlaylistAPI.Core.Application.DTOs.Playlist;
 using MusicPlaylistAPI.Core.Application.Interfaces.Services;
 using FluentValidation;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MusicPlaylistAPI.Controllers.v1
 {
     [ApiVersion("1.0")]
+    [Authorize(Roles = "Basic")]
     public class PlaylistController : BaseController
     {
         private readonly IPlaylistService _playlistService;

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MusicPlaylistAPI.Core.Application.DTOs.Account.Authenticate
@@ -17,5 +19,8 @@ namespace MusicPlaylistAPI.Core.Application.DTOs.Account.Authenticate
         public bool IsVerified { get; set; }
         public bool HasError { get; set; }
         public string? Error { get; set; }
+        public string? JWToken { get; set; }
+        [JsonIgnore]
+        public string? RefreshToken { get; set; }
     }
 }

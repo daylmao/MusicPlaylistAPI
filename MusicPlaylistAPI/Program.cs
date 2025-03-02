@@ -66,16 +66,6 @@ using (var scope = app.Services.CreateScope())
    
 }
 
-    Console.WriteLine("Iniciando consulta...");
-    var resultado = await ConsultarBaseDeDatos();
-    Console.WriteLine($"Resultado: {resultado}");
-
-    static async Task<string> ConsultarBaseDeDatos()
-    {
-        await Task.Delay(3000);
-        return "Datos obtenidos de la base de datos";
-    }
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
